@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace TrainConsole.Test
 {
@@ -63,7 +64,7 @@ namespace TrainConsole.Test
             var result = new Track(1, 2, 63);
 
             //Assert
-            Assert.
+            Assert.ThrowsException<Exception>(() => new Track(2,3,63));
 
         }
 
