@@ -1,6 +1,6 @@
 ﻿namespace TrainConsole
 {
-    class Gate
+   public class Gate
     {
         private bool _isGateOpen = false;
 
