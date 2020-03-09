@@ -53,6 +53,20 @@ namespace TrainConsole.Test
             Assert.IsTrue(result);
         }
 
+        [TestMethod]
+        public void Track_ExistsAlreadyExact_Exception()
+        {
+            //Arrange
+            var track = new Track(1, 2, 58);
+
+            //Act
+            var result = new Track(1, 2, 63);
+
+            //Assert
+            Assert.
+
+        }
+
     }
 
 }

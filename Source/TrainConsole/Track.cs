@@ -4,13 +4,12 @@ using System.Text;
 
 namespace TrainConsole
 {
-    class Track
+    public class Track
     {
 		private static List<Track> trackList;
 		private int _stationA;
 		private int _stationB;
 		private int _distanceAB;
-		private int _distanceBA;
 
 		private int _id = 0;
 		
@@ -18,18 +17,18 @@ namespace TrainConsole
 		{
 			foreach (var track in trackList)
 			{
-				if (true)
+				if ((track._stationA == stationAID && track._stationB == stationBID) 
+					|| (track._stationB == stationAID && track._stationA == stationBID))
 				{
-					
-
+					throw new Exception("Track finns redan idi");
 				}
 			}
 
 			_stationA = stationAID;
 			_stationB = stationBID;
-			_distance = distanceAB;
-
+			_distanceAB = distanceAB;
 			_id++;
+			
 		}
 
 		public int ID
@@ -52,8 +51,8 @@ namespace TrainConsole
 
 		public int Distance
 		{
-			get { return _distance; }
-			set { _distance = value; }
+			get { return _distanceAB; }
+			set { _distanceAB = value; }
 		}
 	}
 }
