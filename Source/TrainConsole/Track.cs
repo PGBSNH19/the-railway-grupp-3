@@ -6,18 +6,18 @@ namespace TrainConsole
 {
     public class Track
     {
-		public static List<Track> trackList;
+		private static List<Track> trackList= new List<Track>();
 		private int _stationA;
 		private int _stationB;
 		private int _distanceAB;
 
 		private int _id = 0;
-		
-		public Track(int stationAID, int stationBID, int distanceAB)
+
+		public void AddTrackToList(int stationAID, int stationBID, int distanceAB)
 		{
 			foreach (var track in trackList)
 			{
-				if ((track._stationA == stationAID && track._stationB == stationBID) 
+				if ((track._stationA == stationAID && track._stationB == stationBID)
 					|| (track._stationB == stationAID && track._stationA == stationBID))
 				{
 					throw new Exception("Track already exists.");
@@ -28,7 +28,7 @@ namespace TrainConsole
 			_stationB = stationBID;
 			_distanceAB = distanceAB;
 			_id++;
-			
+			trackList.Add(this);
 		}
 
 		public int ID
