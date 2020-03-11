@@ -6,7 +6,6 @@ namespace TrainConsole
     {
         static void Main(string[] args)
         {
-
         }
     }
 }
