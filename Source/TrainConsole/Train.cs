@@ -4,29 +4,28 @@ using System.Text;
 
 namespace TrainConsole
 {
-    class Train
+    public class Train
     {
 		private int _id;
 		private string _name;
 		private int _maxSpeed;
 		private bool _operated;
-		private int _capacity;
 		private Trip _currentTrip;
 		private List<Passenger> passengerList = new List<Passenger>();
 
-		public Trip CurrentTrip
+		public Train(int id, string name, int maxSpeed, bool operated)
+		{
+			_id = id;
+			_name = name;
+			_maxSpeed = maxSpeed;
+			_operated = operated;
+		}
+
+		Trip CurrentTrip
 		{
 			get { return _currentTrip; }
 			set { _currentTrip = value; }
 		}
-
-
-		public int Capacity
-		{
-			get { return _capacity; }
-			set { _capacity = value; }
-		}
-
 
 		public bool Operated
 		{

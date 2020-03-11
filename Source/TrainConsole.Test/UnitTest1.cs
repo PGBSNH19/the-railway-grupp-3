@@ -135,6 +135,22 @@ namespace TrainConsole.Test
 
         }
 
+        [TestMethod]
+        public void LoadTrains_CorrectDataFromFile_True()
+        {
+            //Arrange
+            var data = new Data();
+            
+            //Act
+            data.LoadTrains();
+            //Assert
+            Assert.AreEqual(data.Trains[0].ID, 1);
+            Assert.AreEqual(data.Trains[0].Name, "Flying Scotsman");
+            Assert.AreEqual(data.Trains[0].MaxSpeed, 100);
+            Assert.AreEqual(data.Trains[0].Operated, false);
+
+        }
+
 
     }
 

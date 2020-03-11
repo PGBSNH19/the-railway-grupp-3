@@ -4,7 +4,23 @@ using System.Text;
 
 namespace TrainConsole
 {
-    class Controller
+    public class Controller
     {
-    }
+		private bool _isTrainClearedForDeparture;
+
+		public bool IsTrainClearedForDeparture
+		{
+			get { return _isTrainClearedForDeparture; }
+			set { _isTrainClearedForDeparture = value; }
+		}
+
+		public void OpenGate() 
+		{
+			
+		}
+		public void CloseGate() { }
+
+		
+
+	}
 }

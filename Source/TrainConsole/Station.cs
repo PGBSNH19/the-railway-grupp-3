@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TrainConsole
 {
-    class Station
+    public class Station
     {
 		private int _id = 0;
 		private string _name;
@@ -15,8 +15,6 @@ namespace TrainConsole
 		{
 			_id++;
 		}
-
-
 
 		public bool IsEndStation
 		{

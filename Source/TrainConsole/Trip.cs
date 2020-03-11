@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TrainConsole
 {
-    class Trip
+    public class Trip
     {
 		private List<Station> _stations;
 		private Train _curentTrain;

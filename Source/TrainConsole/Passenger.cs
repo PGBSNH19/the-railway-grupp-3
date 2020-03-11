@@ -1,6 +1,6 @@
 ﻿namespace TrainConsole
 {
-    internal class Passenger
+    public class Passenger
     {
         private int _id;
         private string _firstName;
@@ -12,6 +12,7 @@
             get { return _id; }
             set { _id = value; }
         }
+
 
         public string Firstname
         {
