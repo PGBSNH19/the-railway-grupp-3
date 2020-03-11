@@ -105,7 +105,35 @@ namespace TrainConsole.Test
             Assert.IsTrue(exceptionThrown);
         }
 
+        [TestMethod]
+        public void GetTrackByStationID_ValidStations_TrackObject()
+        {
+            //Arrange
+            Track.ClearTrackList();
+            var track1 = new Track(1, 2, 58);
 
+            //Act
+            var result = track1.GetTrackByStationID(1, 2);
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(Track));
+
+        }
+
+        [TestMethod]
+        public void GetTrackByStationID_InvalidStations_Null()
+        {
+            //Arrange
+            Track.ClearTrackList();
+            var track1 = new Track(1, 2, 58);
+
+            //Act
+            var result = track1.GetTrackByStationID(3, 4);
+
+            //Assert
+            Assert.IsNull(result);
+
+        }
 
 
     }
