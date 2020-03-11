@@ -15,20 +15,28 @@ namespace TrainConsole
 
 		public void AddTrackToList(int stationAID, int stationBID, int distanceAB)
 		{
+			if (!IsTrackInList(stationAID, stationBID, distanceAB))
+			{
+				_stationA = stationAID;
+				_stationB = stationBID;
+				_distanceAB = distanceAB;
+				_id++;
+				trackList.Add(this);	
+			}
+			
+		}
+
+		public bool IsTrackInList(int stationAID, int stationBID, int distanceAB)
+		{
 			foreach (var track in trackList)
 			{
 				if ((track._stationA == stationAID && track._stationB == stationBID)
 					|| (track._stationB == stationAID && track._stationA == stationBID))
 				{
-					throw new Exception("Track already exists.");
+					return true;
 				}
 			}
-
-			_stationA = stationAID;
-			_stationB = stationBID;
-			_distanceAB = distanceAB;
-			_id++;
-			trackList.Add(this);
+			return false;
 		}
 
 		public int ID
