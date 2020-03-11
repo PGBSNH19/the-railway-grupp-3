@@ -29,9 +29,8 @@ namespace TrainConsole
 				int count = 0;
 				while (!reader.EndOfStream)
 				{
-						var line = reader.ReadLine();
-						var values = line.Split(',');
-						Console.WriteLine(values[0] + values[1] + values[2] + values[3]);
+					var line = reader.ReadLine();
+					var values = line.Split(',');
 
 					if (count == 0)
 					{
@@ -47,9 +46,16 @@ namespace TrainConsole
 			}
 		}
 
-		public void AddTrainToList(Train train)
+		private string GetSplitCharacter()
 		{
-			
+			int slash = 0;
+			int semicolon = 0;
+			int comma = 0;
+			int divider = 0;
+			int colon = 0;
+
+
+			return "";
 		}
 
 
