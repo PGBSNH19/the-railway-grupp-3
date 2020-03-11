@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 
 namespace TrainConsole.Test
 {
@@ -58,13 +59,16 @@ namespace TrainConsole.Test
         public void Track_ExistsAlreadyExact_Exception()
         {
             //Arrange
-            var track = new Track(1, 2, 58);
-
+            var trackList = new List<Track>();
+            trackList.Add (new Track(1, 2, 58));
             //Act
-            var result = new Track(1, 2, 63);
+            //trackList.Add (new Track(1, 2, 58));
+
+
 
             //Assert
-            Assert.ThrowsException<Exception>(() => new Track(2,3,63));
+            Assert.ThrowsException<Exception>(() => trackList.Add(new Track(1, 2, 55)));
+
 
         }
 

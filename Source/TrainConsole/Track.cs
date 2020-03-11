@@ -6,7 +6,7 @@ namespace TrainConsole
 {
     public class Track
     {
-		private static List<Track> trackList;
+		public static List<Track> trackList;
 		private int _stationA;
 		private int _stationB;
 		private int _distanceAB;
@@ -20,7 +20,7 @@ namespace TrainConsole
 				if ((track._stationA == stationAID && track._stationB == stationBID) 
 					|| (track._stationB == stationAID && track._stationA == stationBID))
 				{
-					throw new Exception("Track finns redan idi");
+					throw new Exception("Track already exists.");
 				}
 			}
 
