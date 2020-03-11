@@ -32,7 +32,11 @@ namespace TrainConsole
 			{
 				throw new Exception("Track is already added.");
 			}
-			
+		}
+
+		public bool ClearTrackList()
+		{
+
 		}
 
 		public bool IsTrackInList(int stationAID, int stationBID)
@@ -50,11 +54,25 @@ namespace TrainConsole
 
 		public int GetDistanceFromStations(int stationAID, int stationBID) 
 		{
+			Track current = null;
 			if (IsTrackInList(stationAID, stationBID))
 			{
-
+				current = GetTrackByStationID(stationAID, stationBID);
 			}
-			return 10;
+			return current.Distance;
+		}
+
+		public Track GetTrackByStationID(int stationAID, int stationBID)
+		{
+			foreach (var track in trackList)
+			{
+				if ((track._stationA == stationAID && track._stationB == stationBID)
+					|| (track._stationB == stationAID && track._stationA == stationBID))
+				{
+					return track;
+				}
+			}
+			return null;
 		}
 
 		public int ID

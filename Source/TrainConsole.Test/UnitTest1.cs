@@ -59,14 +59,30 @@ namespace TrainConsole.Test
         public void IsTrackInList_ExistsInTrackListExactOrInverted_True()
         {
             //Arrange
-            var track1 = new Track(1,2,58);
+            var track1 = new Track(1, 2, 58);
 
             //Act
-            var result = track1.IsTrackInList(1, 2, 58);
+            var result = track1.IsTrackInList(1, 2);
 
             //Assert
             Assert.IsTrue(result);
         }
+
+        [TestMethod]
+        public void GetTrackByStationID_ReturnsATrackObject_NotNull()
+        {
+            //Arrange
+            var TestGetTrackByStationID = new Track(55, 52, 58);
+
+            //Act
+            var result = TestGetTrackByStationID.GetDistanceFromStations(55, 52);
+
+            //Assert
+            Assert.IsNotNull(result);
+        }
+
+
+
 
     }
 
