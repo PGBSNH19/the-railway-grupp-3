@@ -59,16 +59,16 @@ namespace TrainConsole.Test
         public void Track_ExistsAlreadyExact_Exception()
         {
             //Arrange
-            var track1 = new Track(1, 2, 58);
-            //Track.trackList = new List<Track>();
-            //Track.trackList.Add (new Track(1, 2, 58));
+            Track track = new Track();
+            track.AddTrackToList(1, 2, 54);
             var exceptionThrown = false;
+
 
 
             //Act
             try
             {
-                Track.trackList.Add(new Track(1, 2, 58));
+                track.AddTrackToList(1, 2, 54);               
             }
             catch (Exception)
             {

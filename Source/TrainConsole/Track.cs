@@ -21,7 +21,11 @@ namespace TrainConsole
 				_stationB = stationBID;
 				_distanceAB = distanceAB;
 				_id++;
-				trackList.Add(this);	
+				trackList.Add(this);
+			}
+			else
+			{
+				throw new Exception("Track is already added.");
 			}
 			
 		}
