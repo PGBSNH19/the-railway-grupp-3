@@ -34,9 +34,9 @@ namespace TrainConsole
 			}
 		}
 
-		public bool ClearTrackList()
+		public static void ClearTrackList()
 		{
-
+			trackList.Clear();
 		}
 
 		public bool IsTrackInList(int stationAID, int stationBID)
