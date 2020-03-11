@@ -20,7 +20,7 @@ namespace TrainConsole
 
 		public void AddTrackToList(int stationAID, int stationBID, int distanceAB)
 		{
-			if (!IsTrackInList(stationAID, stationBID, distanceAB))
+			if (!IsTrackInList(stationAID, stationBID))
 			{
 				_stationA = stationAID;
 				_stationB = stationBID;
@@ -35,7 +35,7 @@ namespace TrainConsole
 			
 		}
 
-		public bool IsTrackInList(int stationAID, int stationBID, int distanceAB)
+		public bool IsTrackInList(int stationAID, int stationBID)
 		{
 			foreach (var track in trackList)
 			{
@@ -46,6 +46,15 @@ namespace TrainConsole
 				}
 			}
 			return false;
+		}
+
+		public int GetDistanceFromStations(int stationAID, int stationBID) 
+		{
+			if (IsTrackInList(stationAID, stationBID))
+			{
+
+			}
+			return 10;
 		}
 
 		public int ID
@@ -72,4 +81,6 @@ namespace TrainConsole
 			set { _distanceAB = value; }
 		}
 	}
+
+	
 }
