@@ -56,27 +56,16 @@ namespace TrainConsole.Test
         }
 
         [TestMethod]
-        public void Track_ExistsAlreadyExact_Exception()
+        public void IsTrackInList_ExistsInTrackListExactOrInverted_True()
         {
             //Arrange
-            Track track = new Track();
-            track.AddTrackToList(1, 2, 54);
-            var exceptionThrown = false;
-
-
+            var track1 = new Track(1,2,58);
 
             //Act
-            try
-            {
-                track.AddTrackToList(1, 2, 54);               
-            }
-            catch (Exception)
-            {
-                exceptionThrown = true;
-            }
+            var result = track1.IsTrackInList(1, 2, 58);
 
             //Assert
-            Assert.IsTrue(exceptionThrown);
+            Assert.IsTrue(result);
         }
 
     }

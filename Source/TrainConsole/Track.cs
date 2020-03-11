@@ -13,6 +13,11 @@ namespace TrainConsole
 
 		private int _id = 0;
 
+		public Track(int stationAID, int stationBID, int distanceAB)
+		{
+			AddTrackToList(stationAID, stationBID, distanceAB);
+		}
+
 		public void AddTrackToList(int stationAID, int stationBID, int distanceAB)
 		{
 			if (!IsTrackInList(stationAID, stationBID, distanceAB))
