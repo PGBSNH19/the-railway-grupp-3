@@ -70,7 +70,7 @@ namespace TrainConsole.Test
         }
 
         [TestMethod]
-        public void GetDistanceFromStations_ValidStationInList_NotNull()
+        public void GetDistanceFromStations_ValidStationInList_Distance()
         {
             //Arrange
             Track.ClearTrackList();
@@ -80,21 +80,29 @@ namespace TrainConsole.Test
             var result = TestGetTrackByStationID.GetDistanceFromStations(1, 2);
 
             //Assert
-            Assert.IsNotNull(result);
+            Assert.AreEqual(result, 58);
         }
 
         [TestMethod]
-        public void GetTrackByStationID_ReturnsATrackObject_Null()
+        public void GetDistanceFromStations_UnvalidStations_True()
         {
             //Arrange
+            bool exceptionThrown = false;
             Track.ClearTrackList();
             var TestGetTrackByStationID = new Track(1, 2, 58);
 
             //Act
-            var result = TestGetTrackByStationID.GetDistanceFromStations(3, 5);
+            try
+            {
+                var result = TestGetTrackByStationID.GetDistanceFromStations(3, 5);
+            }
+            catch (Exception)
+            {
+                exceptionThrown = true;
+            }
 
             //Assert
-            Assert.IsNull(result);
+            Assert.IsTrue(exceptionThrown);
         }
 
 

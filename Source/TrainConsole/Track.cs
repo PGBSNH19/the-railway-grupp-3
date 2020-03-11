@@ -54,12 +54,12 @@ namespace TrainConsole
 
 		public int GetDistanceFromStations(int stationAID, int stationBID) 
 		{
-			Track current = null;
 			if (IsTrackInList(stationAID, stationBID))
 			{
-				current = GetTrackByStationID(stationAID, stationBID);
+				var current = GetTrackByStationID(stationAID, stationBID);
+				return current.Distance;
 			}
-			return current.Distance;
+			throw new Exception("Station ID's are not valid.");
 		}
 
 		public Track GetTrackByStationID(int stationAID, int stationBID)
