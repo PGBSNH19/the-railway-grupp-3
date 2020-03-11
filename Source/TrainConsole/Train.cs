@@ -12,7 +12,7 @@ namespace TrainConsole
 		private bool _operated;
 		private int _capacity;
 		private Trip _currentTrip;
-
+		private List<Passenger> passengerList = new List<Passenger>();
 
 		public Trip CurrentTrip
 		{
