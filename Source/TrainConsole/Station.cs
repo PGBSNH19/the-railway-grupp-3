@@ -11,9 +11,11 @@ namespace TrainConsole
 		private bool _isEndStation;
 
 
-		public Station()
+		public Station(int id, string name, bool isendstation)
 		{
-			_id++;
+			_id = id;
+			_name = name;
+			_isEndStation = isendstation;
 		}
 
 		public bool IsEndStation

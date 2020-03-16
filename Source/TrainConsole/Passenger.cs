@@ -3,8 +3,7 @@
     public class Passenger
     {
         private int _id;
-        private string _firstName;
-        private string _lastName;
+        private string _name;
         private Trip _curentTrip;
 
         public int ID
@@ -14,19 +13,17 @@
         }
 
 
-        public string Firstname
+        public string Name
         {
-            get { return _firstName; }
-            set { _firstName = value; }
+            get { return _name; }
+            set { _name = value; }
         }
 
-        public string LastName
+        public Passenger(int id, string name)
         {
-            get { return _lastName; }
-            set { _lastName = value; }
+            _id = id;
+            _name = name;
         }
-
-
 
         public Trip CurentTrip
         {

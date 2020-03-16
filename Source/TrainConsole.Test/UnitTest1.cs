@@ -140,9 +140,12 @@ namespace TrainConsole.Test
         {
             //Arrange
             var data = new Data();
-            
+            string path = @"C:\Dev\the-railway-grupp-3\Data\";
+
+            string fileName = "trains.txt";
+
             //Act
-            data.LoadTrains();
+            data.LoadFile(path,fileName);
             //Assert
             Assert.AreEqual(data.Trains[0].ID, 1);
             Assert.AreEqual(data.Trains[0].Name, "Flying Scotsman");

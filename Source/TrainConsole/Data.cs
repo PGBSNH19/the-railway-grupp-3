@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using System.Linq;
 
 namespace TrainConsole
 {
@@ -19,13 +20,17 @@ namespace TrainConsole
 
         public void LoadAllFiles()
         {
-            path = @"C:\Dev\the - railway - grupp - 3\Data\";
-            LoadFile(path, "Trains.txt");
+           string path = @"C:\Dev\the-railway-grupp-3\Data\";
+            LoadFile(path, "trains.txt");
+            LoadFile(path, "passenger.txt");
+            LoadFile(path, "stations.txt");
+            LoadFile(path, "timetable.txt");
+            LoadFile(path, "traintrack.txt");
         }
 
         public void LoadFile(string path, string fileName)
         {
-            string separator = GetSplitCharacter_NotPreDefined(path, fileName);
+            string separator = GetSplitCharacter(path, fileName);
 
             if (separator == "Empty")
             {
@@ -47,14 +52,38 @@ namespace TrainConsole
                     }
                     else
                     {
-                        var train = new Train(int.Parse(values[0]), values[1], int.Parse(values[2]), bool.Parse(values[3]));
-                        Trains.Add(train);
+                        switch (fileName)
+                        {
+                            case "trains.txt":
+                                var train = new Train(int.Parse(values[0]), values[1], int.Parse(values[2]), bool.Parse(values[3]));
+                                Trains.Add(train);
+                                break;
+                            case "passengers.txt":
+                                var passenger = new Passenger(int.Parse(values[0]), values[1]);
+                                Passengers.Add(passenger);
+                                break;
+                            case "stations.txt":
+                                var stations = new Station(int.Parse(values[0]), values[1], bool.Parse(values[3]));
+                                Stations.Add(stations);
+                                break;
+                            case "timetable.txt":
+                                var train = new Train(int.Parse(values[0]), values[1], int.Parse(values[2]), bool.Parse(values[3]));
+                                Trains.Add(train);
+                                break;
+                            case "traintrack.txt":
+                                var train = new Train(int.Parse(values[0]), values[1], int.Parse(values[2]), bool.Parse(values[3]));
+                                Trains.Add(train);
+                                break;
+
+                            default:
+                                break;
+                        }
                     }
                 }
             }
         }
 
-        public string GetSplitCharacter_NotPreDefined(string path, string fileName)
+        public string GetSplitCharacter(string path, string fileName)
         {
             var possibleSeparators = new List<char>();
             var score = new List<int>();
