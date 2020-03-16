@@ -60,7 +60,7 @@ namespace TrainConsole.Test
         {
             //Arrange
             Track.ClearTrackList();
-            var track1 = new Track(1, 2, 58);
+            var track1 = new Track(1, 1, 2, 58);
 
             //Act
             var result = track1.IsTrackInList(1, 2);
@@ -74,7 +74,7 @@ namespace TrainConsole.Test
         {
             //Arrange
             Track.ClearTrackList();
-            var TestGetTrackByStationID = new Track(1, 2, 58);
+            var TestGetTrackByStationID = new Track(1, 1, 2, 58);
 
             //Act
             var result = TestGetTrackByStationID.GetDistanceFromStations(1, 2);
@@ -89,7 +89,7 @@ namespace TrainConsole.Test
             //Arrange
             bool exceptionThrown = false;
             Track.ClearTrackList();
-            var TestGetTrackByStationID = new Track(1, 2, 58);
+            var TestGetTrackByStationID = new Track(1, 1, 2, 58);
 
             //Act
             try
@@ -110,7 +110,7 @@ namespace TrainConsole.Test
         {
             //Arrange
             Track.ClearTrackList();
-            var track1 = new Track(1, 2, 58);
+            var track1 = new Track(1, 1, 2, 58);
 
             //Act
             var result = track1.GetTrackByStationID(1, 2);
@@ -125,7 +125,7 @@ namespace TrainConsole.Test
         {
             //Arrange
             Track.ClearTrackList();
-            var track1 = new Track(1, 2, 58);
+            var track1 = new Track(1, 1, 2, 58);
 
             //Act
             var result = track1.GetTrackByStationID(3, 4);
@@ -136,7 +136,7 @@ namespace TrainConsole.Test
         }
 
         [TestMethod]
-        public void LoadTrains_CorrectDataFromFile_True()
+        public void LoadFile_CorrectTrainDataFromFile_True()
         {
             //Arrange
             var data = new Data();
@@ -145,13 +145,47 @@ namespace TrainConsole.Test
             string fileName = "trains.txt";
 
             //Act
-            data.LoadFile(path,fileName);
+            data.LoadFile(path, fileName);
             //Assert
             Assert.AreEqual(data.Trains[0].ID, 1);
             Assert.AreEqual(data.Trains[0].Name, "Flying Scotsman");
             Assert.AreEqual(data.Trains[0].MaxSpeed, 100);
             Assert.AreEqual(data.Trains[0].Operated, false);
+        }
 
+        [TestMethod]
+        public void LoadFile_CorrectPassengerDataFromFile_True()
+        {
+            //Arrange
+            var data = new Data();
+            string path = @"C:\Dev\the-railway-grupp-3\Data\";
+
+            string fileName = "passengers.txt";
+
+            //Act
+            data.LoadFile(path, fileName);
+            //Assert
+            Assert.AreEqual(data.Passengers[0].ID, 1);
+            Assert.AreEqual(data.Passengers[0].Name, "Misty Walton");
+        }
+
+        [TestMethod]
+        public void LoadFile_CorrectTrackDataFromFile_True()
+        {
+            //Arrange
+            Track.ClearTrackList();
+            var data = new Data();
+            string path = @"C:\Dev\the-railway-grupp-3\Data\";
+
+            string fileName = "traintrack.txt";
+
+            //Act
+            data.LoadFile(path, fileName);
+            //Assert
+            Assert.AreEqual(data.Tracks[0].ID, 1);
+            Assert.AreEqual(data.Tracks[0].StationA, 1);
+            Assert.AreEqual(data.Tracks[0].StationB, 2);
+            Assert.AreEqual(data.Tracks[0].Distance, 68);
         }
 
     }

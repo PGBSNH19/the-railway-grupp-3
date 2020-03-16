@@ -13,19 +13,19 @@ namespace TrainConsole
 
 		private int _id = 0;
 
-		public Track(int stationAID, int stationBID, int distanceAB)
+		public Track(int ID, int stationAID, int stationBID, int distanceAB)
 		{
-			AddTrackToList(stationAID, stationBID, distanceAB);
+			AddTrackToList(ID, stationAID, stationBID, distanceAB);
 		}
 
-		public void AddTrackToList(int stationAID, int stationBID, int distanceAB)
+		public void AddTrackToList(int ID, int stationAID, int stationBID, int distanceAB)
 		{
 			if (!IsTrackInList(stationAID, stationBID))
 			{
+				_id = ID;
 				_stationA = stationAID;
 				_stationB = stationBID;
 				_distanceAB = distanceAB;
-				_id++;
 				trackList.Add(this);
 			}
 			else

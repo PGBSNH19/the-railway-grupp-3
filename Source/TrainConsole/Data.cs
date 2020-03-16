@@ -72,8 +72,8 @@ namespace TrainConsole
                                 TimeTables.Add(timeTable);
                                 break;
                             case "traintrack.txt":
-                                var train = new Train(int.Parse(values[0]), values[1], int.Parse(values[2]), bool.Parse(values[3]));
-                                Trains.Add(train);
+                                var track = new Track(int.Parse(values[0]), int.Parse(values[1]), int.Parse(values[2]), int.Parse(values[3]));
+                                Tracks.Add(track);
                                 break;
 
                             default:
