@@ -54,5 +54,15 @@ namespace TrainConsole
 			set { _id = value; }
 		}
 
+		public void StartTrain(int trainid, int destinationid)
+		{
+
+		}
+
+		public void StopTrain(int trainid)
+		{
+
+		}
+
 	}
 }

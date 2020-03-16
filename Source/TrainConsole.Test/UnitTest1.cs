@@ -187,7 +187,5 @@ namespace TrainConsole.Test
             Assert.AreEqual(data.Tracks[0].StationB, 2);
             Assert.AreEqual(data.Tracks[0].Distance, 68);
         }
-
     }
-
 }

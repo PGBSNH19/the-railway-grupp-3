@@ -18,7 +18,10 @@ namespace TrainConsole
 		{
 			
 		}
-		public void CloseGate() { }
+		public void CloseGate() 
+		{
+			
+		}
 
 		
 
