@@ -65,7 +65,7 @@ namespace TrainConsole
 		private static void StartTrainThread()
 		{
 			string count = "0";
-			while (count != time)
+			while (count != "8")
 			{
 				Thread.Sleep(200);
 				Console.WriteLine("Tuff Tuf maddafakka");
