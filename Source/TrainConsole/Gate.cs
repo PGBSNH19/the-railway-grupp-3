@@ -2,10 +2,10 @@
 {
    public class Gate
     {
-        private bool _isGateOpen = false;
+        private static bool _isGateOpen = false;
 
 
-        public bool IsGateOpen()
+        public static bool IsGateOpen()
         {
             return _isGateOpen;
         }

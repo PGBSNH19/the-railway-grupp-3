@@ -14,16 +14,16 @@ namespace TrainConsole
 			set { _isTrainClearedForDeparture = value; }
 		}
 
-		public void OpenGate() 
+		public void CheckGateForOpen(int gateid)
 		{
-			
-		}
-		public void CloseGate() 
-		{
-			
-		}
+			if (Gate.IsGateOpen())
+			{
 
-		
+			}
+			else
+			{
 
+			}
+		}
 	}
 }

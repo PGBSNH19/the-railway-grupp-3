@@ -64,5 +64,10 @@ namespace TrainConsole
 
 		}
 
+		public void CheckWithController(bool istrackclered)
+		{
+
+		}
+
 	}
 }

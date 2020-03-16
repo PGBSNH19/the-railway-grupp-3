@@ -6,7 +6,7 @@ namespace TrainConsole
 {
     public class Track
     {
-		private static List<Track> trackList= new List<Track>();
+		public static List<Track> trackList= new List<Track>();
 		private int _stationA;
 		private int _stationB;
 		private int _distanceAB;

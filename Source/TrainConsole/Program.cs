@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace TrainConsole
 {
@@ -6,6 +7,8 @@ namespace TrainConsole
     {
         static void Main(string[] args)
         {
+            Trip trip = new Trip();
+            trip.CurentTrip.Add();
         }
     }
 }
