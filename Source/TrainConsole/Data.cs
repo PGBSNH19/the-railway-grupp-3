@@ -15,6 +15,7 @@ namespace TrainConsole
         public List<Gate> Gates = new List<Gate>();
         public List<Trip> Trips = new List<Trip>();
         public List<Passenger> Passengers = new List<Passenger>();
+        public List<TimeTable> TimeTables = new List<TimeTable>();
 
 
 
@@ -67,8 +68,8 @@ namespace TrainConsole
                                 Stations.Add(stations);
                                 break;
                             case "timetable.txt":
-                                var train = new Train(int.Parse(values[0]), values[1], int.Parse(values[2]), bool.Parse(values[3]));
-                                Trains.Add(train);
+                                var timeTable = new TimeTable(int.Parse(values[0]), int.Parse(values[1]),values[2], values[3]);
+                                TimeTables.Add(timeTable);
                                 break;
                             case "traintrack.txt":
                                 var train = new Train(int.Parse(values[0]), values[1], int.Parse(values[2]), bool.Parse(values[3]));
