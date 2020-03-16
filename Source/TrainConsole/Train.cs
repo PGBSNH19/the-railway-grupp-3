@@ -13,6 +13,7 @@ namespace TrainConsole
 		private bool _operated;
 		private Trip _currentTrip;
 		private List<Passenger> passengerList = new List<Passenger>();
+		
 
 		public Train(int id, string name, int maxSpeed, bool operated)
 		{
@@ -55,15 +56,21 @@ namespace TrainConsole
 			set { _id = value; }
 		}
 
-		public void StartTrain()
+		public void StartTrain(Data data)
 		{
-			Thread thread = new Thread(Train.StartTrainThread());
+			Thread thread = new Thread(new ThreadStart(StartTrainThread));
 			thread.Start();
 		}
 
 		private static void StartTrainThread()
 		{
-			Console.WriteLine("Tuff Tuf maddafakka");
+			string count = "0";
+			while (count != time)
+			{
+				Thread.Sleep(200);
+				Console.WriteLine("Tuff Tuf maddafakka");
+			}
+			
 		}
 
 		public void StopTrain(int trainid)

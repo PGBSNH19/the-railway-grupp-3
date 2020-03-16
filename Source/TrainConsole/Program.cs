@@ -1,10 +1,19 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 
 namespace TrainConsole
 {
     class Program
     {
+        public static DateTime globaltime = DateTime.Parse("10:00");
+        public static Timer t = new Timer(timetick, globaltime, 0, 1000);
+
+        private static void timetick(object state)
+        {
+            Console.WriteLine("test");
+        }
+
         static void Main(string[] args)
         {
             Data data = new Data();
@@ -19,7 +28,7 @@ namespace TrainConsole
 
             data.Trains[0].CurrentTrip = trip;
 
-            data.Trains[0].StartTrain();
+            data.Trains[0].StartTrain(data);
 
         }
     }
