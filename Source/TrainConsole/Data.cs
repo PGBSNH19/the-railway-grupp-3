@@ -46,7 +46,7 @@ namespace TrainConsole
 			}
 		}
 
-		private string GetSplitCharacter()
+		private string GetSplitCharacter(string FileLocation)
 		{
 			int slash = 0;
 			int semicolon = 0;
