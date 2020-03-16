@@ -11,13 +11,11 @@ namespace TrainConsole
             data.LoadAllFiles();
             var trip = new Trip
             {
-                CurentTrain = data.Trains[0],
-                
-
+                CurentTrain = data.Trains[0]
             };
 
-            trip.Stations.Add(data.Stations[0]);
-            trip.Stations.Add(data.Stations[1]);
+            trip.Stations.Add(data.Stations.Where(x => x.Name == "Stonecro").FirstOrDefault());
+            trip.Stations.Add(data.Stations.Where(x => x.ID == 2).FirstOrDefault());
 
             data.Trains[0].CurrentTrip = trip;
 

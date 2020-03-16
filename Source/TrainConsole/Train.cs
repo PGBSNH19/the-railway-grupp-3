@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace TrainConsole
 {
@@ -56,7 +57,13 @@ namespace TrainConsole
 
 		public void StartTrain()
 		{
-			Console.WriteLine("tåget går");
+			Thread thread = new Thread(Train.StartTrainThread());
+			thread.Start();
+		}
+
+		private static void StartTrainThread()
+		{
+			Console.WriteLine("Tuff Tuf maddafakka");
 		}
 
 		public void StopTrain(int trainid)

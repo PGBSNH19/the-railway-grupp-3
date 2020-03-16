@@ -6,9 +6,10 @@ namespace TrainConsole
 {
     public class Trip
     {
-		private List<Station> _stations;
+		private List<Station> _stations = new List<Station>();
 		private Train _curentTrain;
 		private List<Track> _curentTrip;
+
 
 		public List<Track> CurentTrip
 		{
