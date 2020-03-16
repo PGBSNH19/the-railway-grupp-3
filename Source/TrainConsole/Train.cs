@@ -62,15 +62,13 @@ namespace TrainConsole
 			set { _id = value; }
 		}
 
-		public void StartTrain(Train train, Station departureStation, Station arrivalStation, DateTime arrivalTime)
+		public void StartTrain(Train train, Station departureStation, Station arrivalStation, TimeSpan journeyTime)
 		{
-			Console.WriteLine($"Tåget {train.Name} avgår nu från {departureStation.Name}. Klockan: {Program.globaltime}");
 
-			TimeSpan tripSpan = (arrivalTime - Program.globaltime);
-			int tripTime = tripSpan.Minutes;
-			string message = $"Tåget {train.Name} ankom nu till {arrivalStation.Name}.";
+			string startMessage = $"{train.Name} avgår nu från {departureStation.Name}.";
+			string endMessage = $"{train.Name} ankom nu till {arrivalStation.Name}.";
 
-			object parameter = new object[2] { tripSpan.Minutes, message };
+			object parameter = new object[3] { journeyTime.Minutes, startMessage, endMessage };
 
 			Thread thread = new Thread(Train.StartTrainThread);
 			thread.Start(parameter);
@@ -78,21 +76,23 @@ namespace TrainConsole
 
 		private static void StartTrainThread(object jT)
 		{
-			Array argArray = new object[2];
+			Array argArray = new object[3];
 			argArray = (Array)jT;
 
-			int journeyTime = int.Parse(argArray.GetValue(0).ToString());
+			Console.WriteLine(argArray.GetValue(1) + $" Klockan: {Program.globaltime}");
 
+
+			int journeyTime = int.Parse(argArray.GetValue(0).ToString());
 			DateTime startTime = DateTime.Now;
-			TimeSpan elapsedTime = (DateTime.Now - startTime) * 60;
+			TimeSpan elapsedTime = (DateTime.Now - startTime) * Program.timeMultiplier;
 
 			while (elapsedTime.Minutes <= journeyTime)
 			{
 				Thread.Sleep(333);
-				elapsedTime = (DateTime.Now - startTime) * 60;
+				elapsedTime = (DateTime.Now - startTime) * Program.timeMultiplier;
 			}
 
-			Console.WriteLine(argArray.GetValue(1) + $" Klockan: {Program.globaltime}");
+			Console.WriteLine(argArray.GetValue(2) + $" Klockan: {Program.globaltime}");
 		}
 
 		public void StopTrain(int trainid)

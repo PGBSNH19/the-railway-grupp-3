@@ -10,6 +10,9 @@ namespace TrainConsole
         public int stationId { get; set; }
         public DateTime departureTime { get; set; }
         public DateTime arrivalTime { get; set; }
+        public bool HasDeparted { get; set; }
+
+
 
 
         public TimeTable(int trainId,int stationID, DateTime departerTime, DateTime arrivalTimeinput)
@@ -18,7 +21,7 @@ namespace TrainConsole
             stationId = stationID;
             departureTime = departerTime;
             arrivalTime = arrivalTimeinput;
-
+            HasDeparted = false;
         }
     }
 
