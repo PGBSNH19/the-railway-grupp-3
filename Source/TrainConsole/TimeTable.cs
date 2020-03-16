@@ -8,11 +8,11 @@ namespace TrainConsole
     {
         public int traindId { get; set; }
         public int stationId { get; set; }
-        public string departureTime { get; set; }
-        public string arrivalTime { get; set; }
+        public DateTime departureTime { get; set; }
+        public DateTime arrivalTime { get; set; }
 
 
-        public TimeTable(int trainId,int stationID, string departerTime, string arrivalTimeinput)
+        public TimeTable(int trainId,int stationID, DateTime departerTime, DateTime arrivalTimeinput)
         {
             traindId = trainId;
             stationId = stationID;

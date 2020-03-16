@@ -13,7 +13,13 @@ namespace TrainConsole
 		private bool _operated;
 		private Trip _currentTrip;
 		private List<Passenger> passengerList = new List<Passenger>();
-		
+		private int _currentStationID;
+
+		public int CurrentStationID
+		{
+			get { return _currentStationID; }
+			set { _currentStationID = value; }
+		}
 
 		public Train(int id, string name, int maxSpeed, bool operated)
 		{
@@ -56,21 +62,37 @@ namespace TrainConsole
 			set { _id = value; }
 		}
 
-		public void StartTrain(Data data)
+		public void StartTrain(Train train, Station departureStation, Station arrivalStation, DateTime arrivalTime)
 		{
-			Thread thread = new Thread(new ThreadStart(StartTrainThread));
-			thread.Start();
+			Console.WriteLine($"Tåget {train.Name} avgår nu från {departureStation.Name}. Klockan: {Program.globaltime}");
+
+			TimeSpan tripSpan = (arrivalTime - Program.globaltime);
+			int tripTime = tripSpan.Minutes;
+			string message = $"Tåget {train.Name} ankom nu till {arrivalStation.Name}.";
+
+			object parameter = new object[2] { tripSpan.Minutes, message };
+
+			Thread thread = new Thread(Train.StartTrainThread);
+			thread.Start(parameter);
 		}
 
-		private static void StartTrainThread()
+		private static void StartTrainThread(object jT)
 		{
-			string count = "0";
-			while (count != "8")
+			Array argArray = new object[2];
+			argArray = (Array)jT;
+
+			int journeyTime = int.Parse(argArray.GetValue(0).ToString());
+
+			DateTime startTime = DateTime.Now;
+			TimeSpan elapsedTime = (DateTime.Now - startTime) * 60;
+
+			while (elapsedTime.Minutes <= journeyTime)
 			{
-				Thread.Sleep(200);
-				Console.WriteLine("Tuff Tuf maddafakka");
+				Thread.Sleep(333);
+				elapsedTime = (DateTime.Now - startTime) * 60;
 			}
-			
+
+			Console.WriteLine(argArray.GetValue(1) + $" Klockan: {Program.globaltime}");
 		}
 
 		public void StopTrain(int trainid)
@@ -82,6 +104,5 @@ namespace TrainConsole
 		{
 
 		}
-
 	}
 }

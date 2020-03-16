@@ -21,7 +21,8 @@ namespace TrainConsole
 
         public void LoadAllFiles()
         {
-           string path = @"C:\Dev\the-railway-grupp-3\Data\";
+            string path = @"..\..\..\..\..\Data\";
+
             LoadFile(path, "trains.txt");
             LoadFile(path, "passengers.txt");
             LoadFile(path, "stations.txt");
@@ -68,8 +69,26 @@ namespace TrainConsole
                                 Stations.Add(stations);
                                 break;
                             case "timetable.txt":
-                                var timeTable = new TimeTable(int.Parse(values[0]), int.Parse(values[1]),values[2], values[3]);
-                                TimeTables.Add(timeTable);
+                                if (values[2] == "null" && values[3] == "null")
+                                {
+                                    var timeTable = new TimeTable(int.Parse(values[0]), int.Parse(values[1]), DateTime.Parse("00:00"), DateTime.Parse("00:00"));
+                                    TimeTables.Add(timeTable);
+                                }
+                                else if (values[2] == "null")
+                                {
+                                    var timeTable = new TimeTable(int.Parse(values[0]), int.Parse(values[1]), DateTime.Parse("00:00"), DateTime.Parse(values[3]));
+                                    TimeTables.Add(timeTable);
+                                }
+                                else if (values[3] == "null")
+                                {
+                                    var timeTable = new TimeTable(int.Parse(values[0]), int.Parse(values[1]), DateTime.Parse(values[2]), DateTime.Parse("00:00"));
+                                    TimeTables.Add(timeTable);
+                                }
+                                else
+                                {
+                                    var timeTable = new TimeTable(int.Parse(values[0]), int.Parse(values[1]), DateTime.Parse(values[2]), DateTime.Parse(values[3]));
+                                    TimeTables.Add(timeTable);
+                                }
                                 break;
                             case "traintrack.txt":
                                 var track = new Track(int.Parse(values[0]), int.Parse(values[1]), int.Parse(values[2]), int.Parse(values[3]));
