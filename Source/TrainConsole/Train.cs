@@ -21,7 +21,7 @@ namespace TrainConsole
 			_operated = operated;
 		}
 
-		Trip CurrentTrip
+		public Trip CurrentTrip
 		{
 			get { return _currentTrip; }
 			set { _currentTrip = value; }
@@ -54,9 +54,9 @@ namespace TrainConsole
 			set { _id = value; }
 		}
 
-		public void StartTrain(int trainid, int destinationid)
+		public void StartTrain()
 		{
-
+			Console.WriteLine("tåget går");
 		}
 
 		public void StopTrain(int trainid)

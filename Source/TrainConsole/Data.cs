@@ -23,7 +23,7 @@ namespace TrainConsole
         {
            string path = @"C:\Dev\the-railway-grupp-3\Data\";
             LoadFile(path, "trains.txt");
-            LoadFile(path, "passenger.txt");
+            LoadFile(path, "passengers.txt");
             LoadFile(path, "stations.txt");
             LoadFile(path, "timetable.txt");
             LoadFile(path, "traintrack.txt");
@@ -64,7 +64,7 @@ namespace TrainConsole
                                 Passengers.Add(passenger);
                                 break;
                             case "stations.txt":
-                                var stations = new Station(int.Parse(values[0]), values[1], bool.Parse(values[3]));
+                                var stations = new Station(int.Parse(values[0]), values[1], bool.Parse(values[2]));
                                 Stations.Add(stations);
                                 break;
                             case "timetable.txt":
