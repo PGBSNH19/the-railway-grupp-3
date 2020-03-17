@@ -8,7 +8,7 @@ namespace TrainConsole
 {
     public class Data
     {
-        public List<Trip> Trips = new List<Trip>();
+        public List<List<TimeTable>> Trips = new List<List<TimeTable>>();
         public List<Track> Tracks = new List<Track>();
         public List<TrackSwitch> TrackSwitches = new List<TrackSwitch>();
         public List<Station> Stations = new List<Station>();
@@ -16,9 +16,6 @@ namespace TrainConsole
         public List<Gate> Gates = new List<Gate>();
         public List<Passenger> Passengers = new List<Passenger>();
         public List<TimeTable> TimeTables = new List<TimeTable>();
-        
-
-
 
         public void LoadAllFiles()
         {
@@ -29,6 +26,7 @@ namespace TrainConsole
             LoadFile(path, "stations.txt");
             LoadFile(path, "timetable.txt");
             LoadFile(path, "traintrack.txt");
+            CreateTrip();
         }
 
         public void LoadFile(string path, string fileName)
@@ -37,7 +35,7 @@ namespace TrainConsole
 
             if (separator == "Empty")
             {
-                throw new Exception("File is empty or unable to find the separator");
+                throw new Exception($"File is empty or unable to find the separator {fileName}");
             }
 
             using (var reader = new StreamReader(path + fileName))
@@ -87,8 +85,7 @@ namespace TrainConsole
                                 {
                                     timeTableRow = new TimeTable(int.Parse(values[0]), int.Parse(values[1]), DateTime.Parse(values[2]), DateTime.Parse(values[3]));
                                 }
-
-                                CreateTrip(timeTableRow);
+                                TimeTables.Add(timeTableRow);
                                 break;
                             case "traintrack.txt":
                                 var track = new Track(int.Parse(values[0]), int.Parse(values[1]), int.Parse(values[2]), int.Parse(values[3]));
@@ -103,53 +100,27 @@ namespace TrainConsole
             }
         }
 
-        private void CreateTrip(TimeTable timeTableRow) 
+        private void CreateTrip()
         {
             var distinctList = TimeTables.Select(x => x.traindId).Distinct();
             foreach (var distinct in distinctList)
             {
-                var partTripInTrip = TimeTables.Where(x => x.traindId == distinct).ToList();
+                var tripPart = TimeTables.Where(x => x.traindId == distinct).ToList();
+                Trips.Add(tripPart);
             }
+        }
 
-
-            foreach (var tripPart in Trips)
+        public bool IsTripDone(int stationID)
+        {
+            foreach (var listOfTrips in Trips)
             {
-                foreach (var trip in tripPart.TrainStops)
+                var lastTrip = listOfTrips[listOfTrips.Count() - 1];
+                if (lastTrip.stationId == stationID)
                 {
-                    if (trip.traindId == timeTableRow.traindId)
-                    {
-
-                    }
-                }            
-            }
-
-
-
-            int trainID = 0;
-            foreach (var tripPart in TimeTables)
-            {
-                //om samma id lägg till trip.TrainStops.Add(tripPart)
-                // om annat id new trip
-
-
-
-                if (trainID != tripPart.traindId)
-                {
-                    var trip = new Trip();
-                    trainID = tripPart.traindId;
-                    trip.TrainStops.Add(tripPart);
-                    
+                    return true;
                 }
-                else if (trainID == tripPart.traindId)
-                {
-                    // en del av samma trip
-                }
-
-
-
             }
-
-
+            return false;
         }
 
 
@@ -188,5 +159,16 @@ namespace TrainConsole
             return possibleSeparators[maxIndex].ToString();
         }
 
+        public bool IsStationClear(int stationID)
+        {
+            foreach (var train in Trains)
+            {
+                if (train.CurrentStationID == stationID)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }
