@@ -81,20 +81,21 @@ namespace TrainConsole
 			var track = (Track)argArray.GetValue(3);
 
 			Console.WriteLine(argArray.GetValue(1) + $" Klockan: {Program.globaltime}");
+            //track.IsClear = false;
 
-			int journeyTime = int.Parse(argArray.GetValue(0).ToString());
+            int journeyTime = int.Parse(argArray.GetValue(0).ToString());
 			DateTime startTime = DateTime.Now;
 			TimeSpan elapsedTime = (DateTime.Now - startTime) * Program.timeMultiplier;
 
-			track.IsClear = false;
 			while (elapsedTime.Minutes <= journeyTime)
 			{
 				Thread.Sleep(333);
 				elapsedTime = (DateTime.Now - startTime) * Program.timeMultiplier;
 			}
-			track.IsClear = true;
 
 			Console.WriteLine(argArray.GetValue(2) + $" Klockan: {Program.globaltime}");
+         
+
 		}
 
 		public void StopTrain(int trainid)

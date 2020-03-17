@@ -8,14 +8,15 @@ namespace TrainConsole
 {
     public class Data
     {
+        public List<Trip> Trips = new List<Trip>();
         public List<Track> Tracks = new List<Track>();
         public List<TrackSwitch> TrackSwitches = new List<TrackSwitch>();
         public List<Station> Stations = new List<Station>();
         public List<Train> Trains = new List<Train>();
         public List<Gate> Gates = new List<Gate>();
-        public List<Trip> Trips = new List<Trip>();
         public List<Passenger> Passengers = new List<Passenger>();
         public List<TimeTable> TimeTables = new List<TimeTable>();
+        
 
 
 
@@ -69,26 +70,25 @@ namespace TrainConsole
                                 Stations.Add(stations);
                                 break;
                             case "timetable.txt":
+                                TimeTable timeTableRow;
                                 if (values[2] == "null" && values[3] == "null")
                                 {
-                                    var timeTable = new TimeTable(int.Parse(values[0]), int.Parse(values[1]), DateTime.Parse("00:00"), DateTime.Parse("00:00"));
-                                    TimeTables.Add(timeTable);
+                                    timeTableRow = new TimeTable(int.Parse(values[0]), int.Parse(values[1]), DateTime.Parse("00:00"), DateTime.Parse("00:00"));
                                 }
                                 else if (values[2] == "null")
                                 {
-                                    var timeTable = new TimeTable(int.Parse(values[0]), int.Parse(values[1]), DateTime.Parse("00:00"), DateTime.Parse(values[3]));
-                                    TimeTables.Add(timeTable);
+                                    timeTableRow = new TimeTable(int.Parse(values[0]), int.Parse(values[1]), DateTime.Parse("00:00"), DateTime.Parse(values[3]));
                                 }
                                 else if (values[3] == "null")
                                 {
-                                    var timeTable = new TimeTable(int.Parse(values[0]), int.Parse(values[1]), DateTime.Parse(values[2]), DateTime.Parse("00:00"));
-                                    TimeTables.Add(timeTable);
+                                    timeTableRow = new TimeTable(int.Parse(values[0]), int.Parse(values[1]), DateTime.Parse(values[2]), DateTime.Parse("00:00"));
                                 }
                                 else
                                 {
-                                    var timeTable = new TimeTable(int.Parse(values[0]), int.Parse(values[1]), DateTime.Parse(values[2]), DateTime.Parse(values[3]));
-                                    TimeTables.Add(timeTable);
+                                    timeTableRow = new TimeTable(int.Parse(values[0]), int.Parse(values[1]), DateTime.Parse(values[2]), DateTime.Parse(values[3]));
                                 }
+
+                                CreateTrip(timeTableRow);
                                 break;
                             case "traintrack.txt":
                                 var track = new Track(int.Parse(values[0]), int.Parse(values[1]), int.Parse(values[2]), int.Parse(values[3]));
@@ -102,6 +102,56 @@ namespace TrainConsole
                 }
             }
         }
+
+        private void CreateTrip(TimeTable timeTableRow) 
+        {
+            var distinctList = TimeTables.Select(x => x.traindId).Distinct();
+            foreach (var distinct in distinctList)
+            {
+                var partTripInTrip = TimeTables.Where(x => x.traindId == distinct).ToList();
+            }
+
+
+            foreach (var tripPart in Trips)
+            {
+                foreach (var trip in tripPart.TrainStops)
+                {
+                    if (trip.traindId == timeTableRow.traindId)
+                    {
+
+                    }
+                }            
+            }
+
+
+
+            int trainID = 0;
+            foreach (var tripPart in TimeTables)
+            {
+                //om samma id lägg till trip.TrainStops.Add(tripPart)
+                // om annat id new trip
+
+
+
+                if (trainID != tripPart.traindId)
+                {
+                    var trip = new Trip();
+                    trainID = tripPart.traindId;
+                    trip.TrainStops.Add(tripPart);
+                    
+                }
+                else if (trainID == tripPart.traindId)
+                {
+                    // en del av samma trip
+                }
+
+
+
+            }
+
+
+        }
+
 
         public string GetSplitCharacter(string path, string fileName)
         {
