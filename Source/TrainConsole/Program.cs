@@ -15,7 +15,7 @@ namespace TrainConsole
         {
             TimeSpan elapsedTime = (DateTime.Now - startTime)*timeMultiplier;
             startTime = DateTime.Now;
-            globaltime = globaltime + elapsedTime;
+            globaltime += elapsedTime;
 
             //Console.WriteLine(globaltime);
         }
@@ -49,13 +49,23 @@ namespace TrainConsole
 
         static void TellTrainToStart(int i)
         {
-            data.TimeTables[i].HasDeparted = true;
-            var currentTrain = data.Trains.Where(x => x.ID == data.TimeTables[i].traindId).FirstOrDefault();
-            TimeSpan journeyTime = (data.TimeTables[i + 1].arrivalTime - globaltime);
             var departureStation = data.Stations.Where(x => x.ID == data.TimeTables[i].stationId).FirstOrDefault();
             var arrivalStation = data.Stations.Where(x => x.ID == data.TimeTables[i + 1].stationId).FirstOrDefault();
+            var track = Track.GetTrackByStationID(departureStation.ID, arrivalStation.ID);
 
-            currentTrain.StartTrain(currentTrain, departureStation, arrivalStation, journeyTime);
+            var currentTrain = data.Trains.Where(x => x.ID == data.TimeTables[i].traindId).FirstOrDefault();
+
+            if (track.IsClear)
+            {
+                data.TimeTables[i].HasDeparted = true;
+                TimeSpan journeyTime = (data.TimeTables[i + 1].arrivalTime - globaltime);
+
+                currentTrain.StartTrain(currentTrain, departureStation, arrivalStation, journeyTime, track);
+            }
+            else
+            {
+                Console.WriteLine($"{currentTrain.Name} is waiting for the track infront to clear.");
+            }
         }
     }
 }

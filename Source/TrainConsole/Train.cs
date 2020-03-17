@@ -62,35 +62,37 @@ namespace TrainConsole
 			set { _id = value; }
 		}
 
-		public void StartTrain(Train train, Station departureStation, Station arrivalStation, TimeSpan journeyTime)
+		public void StartTrain(Train train, Station departureStation, Station arrivalStation, TimeSpan journeyTime, Track track)
 		{
+			string startMessage = $"{train.Name} avgår nu från {departureStation.Name}({departureStation.ID}).";
+			string endMessage = $"{train.Name} ankom nu till {arrivalStation.Name}({arrivalStation.ID}).";
 
-			string startMessage = $"{train.Name} avgår nu från {departureStation.Name}.";
-			string endMessage = $"{train.Name} ankom nu till {arrivalStation.Name}.";
+			object parameters = new object[4] { journeyTime.Minutes, startMessage, endMessage, track };
 
-			object parameter = new object[3] { journeyTime.Minutes, startMessage, endMessage };
 
-			Thread thread = new Thread(Train.StartTrainThread);
-			thread.Start(parameter);
+			Thread thread = new Thread(() => StartTrainThread(parameters));
+			thread.Start();
 		}
 
-		private static void StartTrainThread(object jT)
+		private static void StartTrainThread(object parameters)
 		{
-			Array argArray = new object[3];
-			argArray = (Array)jT;
+			Array argArray = new object[4];
+			argArray = (Array)parameters;
+			var track = (Track)argArray.GetValue(3);
 
 			Console.WriteLine(argArray.GetValue(1) + $" Klockan: {Program.globaltime}");
-
 
 			int journeyTime = int.Parse(argArray.GetValue(0).ToString());
 			DateTime startTime = DateTime.Now;
 			TimeSpan elapsedTime = (DateTime.Now - startTime) * Program.timeMultiplier;
 
+			track.IsClear = false;
 			while (elapsedTime.Minutes <= journeyTime)
 			{
 				Thread.Sleep(333);
 				elapsedTime = (DateTime.Now - startTime) * Program.timeMultiplier;
 			}
+			track.IsClear = true;
 
 			Console.WriteLine(argArray.GetValue(2) + $" Klockan: {Program.globaltime}");
 		}

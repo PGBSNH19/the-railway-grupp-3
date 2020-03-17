@@ -10,6 +10,14 @@ namespace TrainConsole
 		private int _stationA;
 		private int _stationB;
 		private int _distanceAB;
+		private bool _isTrackClear;
+
+		public bool IsClear
+		{
+			get { return _isTrackClear; }
+			set { _isTrackClear = value; }
+		}
+
 
 		private int _id = 0;
 
@@ -27,6 +35,7 @@ namespace TrainConsole
 				_stationB = stationBID;
 				_distanceAB = distanceAB;
 				trackList.Add(this);
+				_isTrackClear = true;
 			}
 			else
 			{
@@ -62,7 +71,7 @@ namespace TrainConsole
 			throw new Exception("Station ID's are not valid.");
 		}
 
-		public Track GetTrackByStationID(int stationAID, int stationBID)
+		public static Track GetTrackByStationID(int stationAID, int stationBID)
 		{
 			foreach (var track in trackList)
 			{
@@ -99,6 +108,4 @@ namespace TrainConsole
 			set { _distanceAB = value; }
 		}
 	}
-
-	
 }
