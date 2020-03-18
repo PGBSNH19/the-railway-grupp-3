@@ -8,14 +8,16 @@ namespace TrainConsole
 {
     public class Data
     {
-        public List<List<TimeTable>> Trips = new List<List<TimeTable>>();
         public List<Track> Tracks = new List<Track>();
         public List<TrackSwitch> TrackSwitches = new List<TrackSwitch>();
         public List<Station> Stations = new List<Station>();
         public List<Train> Trains = new List<Train>();
         public List<Gate> Gates = new List<Gate>();
+        public List<Trip> Trips = new List<Trip>();
         public List<Passenger> Passengers = new List<Passenger>();
         public List<TimeTable> TimeTables = new List<TimeTable>();
+
+
 
         public void LoadAllFiles()
         {
@@ -26,7 +28,6 @@ namespace TrainConsole
             LoadFile(path, "stations.txt");
             LoadFile(path, "timetable.txt");
             LoadFile(path, "traintrack.txt");
-            CreateTrip();
         }
 
         public void LoadFile(string path, string fileName)
@@ -35,7 +36,7 @@ namespace TrainConsole
 
             if (separator == "Empty")
             {
-                throw new Exception($"File is empty or unable to find the separator {fileName}");
+                throw new Exception("File is empty or unable to find the separator");
             }
 
             using (var reader = new StreamReader(path + fileName))
@@ -68,24 +69,24 @@ namespace TrainConsole
                                 Stations.Add(stations);
                                 break;
                             case "timetable.txt":
-                                TimeTable timeTableRow;
+                                TimeTable timeTable;
                                 if (values[2] == "null" && values[3] == "null")
                                 {
-                                    timeTableRow = new TimeTable(int.Parse(values[0]), int.Parse(values[1]), DateTime.Parse("00:00"), DateTime.Parse("00:00"));
+                                    timeTable = new TimeTable(int.Parse(values[0]), int.Parse(values[1]), DateTime.Parse("00:00"), DateTime.Parse("00:00"));
                                 }
                                 else if (values[2] == "null")
                                 {
-                                    timeTableRow = new TimeTable(int.Parse(values[0]), int.Parse(values[1]), DateTime.Parse("00:00"), DateTime.Parse(values[3]));
+                                    timeTable = new TimeTable(int.Parse(values[0]), int.Parse(values[1]), DateTime.Parse("00:00"), DateTime.Parse(values[3]));
                                 }
                                 else if (values[3] == "null")
                                 {
-                                    timeTableRow = new TimeTable(int.Parse(values[0]), int.Parse(values[1]), DateTime.Parse(values[2]), DateTime.Parse("00:00"));
+                                    timeTable = new TimeTable(int.Parse(values[0]), int.Parse(values[1]), DateTime.Parse(values[2]), DateTime.Parse("00:00"));
                                 }
                                 else
                                 {
-                                    timeTableRow = new TimeTable(int.Parse(values[0]), int.Parse(values[1]), DateTime.Parse(values[2]), DateTime.Parse(values[3]));
+                                    timeTable = new TimeTable(int.Parse(values[0]), int.Parse(values[1]), DateTime.Parse(values[2]), DateTime.Parse(values[3]));
                                 }
-                                TimeTables.Add(timeTableRow);
+                                TimeTables.Add(timeTable);
                                 break;
                             case "traintrack.txt":
                                 var track = new Track(int.Parse(values[0]), int.Parse(values[1]), int.Parse(values[2]), int.Parse(values[3]));
@@ -99,30 +100,6 @@ namespace TrainConsole
                 }
             }
         }
-
-        private void CreateTrip()
-        {
-            var distinctList = TimeTables.Select(x => x.traindId).Distinct();
-            foreach (var distinct in distinctList)
-            {
-                var tripPart = TimeTables.Where(x => x.traindId == distinct).ToList();
-                Trips.Add(tripPart);
-            }
-        }
-
-        public bool IsTripDone(int stationID)
-        {
-            foreach (var listOfTrips in Trips)
-            {
-                var lastTrip = listOfTrips[listOfTrips.Count() - 1];
-                if (lastTrip.stationId == stationID)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
 
         public string GetSplitCharacter(string path, string fileName)
         {
@@ -159,16 +136,5 @@ namespace TrainConsole
             return possibleSeparators[maxIndex].ToString();
         }
 
-        public bool IsStationClear(int stationID)
-        {
-            foreach (var train in Trains)
-            {
-                if (train.CurrentStationID == stationID)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
     }
 }

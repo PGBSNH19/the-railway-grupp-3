@@ -5,8 +5,8 @@ using System.Threading;
 
 namespace TrainConsole
 {
-	public class Train
-	{
+    public class Train
+    {
 		private int _id;
 		private string _name;
 		private int _maxSpeed;
@@ -62,9 +62,14 @@ namespace TrainConsole
 			set { _id = value; }
 		}
 
-		public void StartTrain(Train train, Station departureStation, Station arrivalStation, TimeSpan journeyTime)
+		public void StartTrain(Train train, Station departureStation, Station arrivalStation, TimeSpan journeyTime, Track track)
 		{
-			object parameters = new object[4] { journeyTime.Minutes, departureStation, arrivalStation, train };
+			string startMessage = $"{train.Name} avgår nu från {departureStation.Name}({departureStation.ID})({arrivalStation.ID}).";
+			string endMessage = $"{train.Name} ankom nu till {arrivalStation.Name}({arrivalStation.ID}).";
+
+			object parameters = new object[4] { journeyTime.Minutes, startMessage, endMessage, track };
+
+
 			Thread thread = new Thread(() => StartTrainThread(parameters));
 			thread.Start();
 		}
@@ -73,34 +78,23 @@ namespace TrainConsole
 		{
 			Array argArray = new object[4];
 			argArray = (Array)parameters;
-			var departureStation = (Station)argArray.GetValue(1);
-			var arrivalStation = (Station)argArray.GetValue(2);
-			var train = (Train)argArray.GetValue(3);
+			var track = (Track)argArray.GetValue(3);
+
+			Console.WriteLine(argArray.GetValue(1) + $" Klockan: {Program.globaltime}");
 
 			int journeyTime = int.Parse(argArray.GetValue(0).ToString());
 			DateTime startTime = DateTime.Now;
 			TimeSpan elapsedTime = (DateTime.Now - startTime) * Program.timeMultiplier;
 
-
-			Console.WriteLine($"{train.Name} avgår nu från {departureStation.Name}({departureStation.ID}). Klockan: {Program.globaltime}");
+			track.IsClear = false;
 			while (elapsedTime.Minutes <= journeyTime)
 			{
 				Thread.Sleep(333);
 				elapsedTime = (DateTime.Now - startTime) * Program.timeMultiplier;
 			}
+			track.IsClear = true;
 
-			Console.WriteLine($"{train.Name} ankom nu till {arrivalStation.Name}({arrivalStation.ID}). Klockan: {Program.globaltime}");
-			train.CurrentStationID = arrivalStation.ID;
-		}
-
-		public void StopTrain(int trainid)
-		{
-
-		}
-
-		public void CheckWithController(bool istrackclered)
-		{
-
+			Console.WriteLine(argArray.GetValue(2) + $" Klockan: {Program.globaltime}");
 		}
 	}
 }

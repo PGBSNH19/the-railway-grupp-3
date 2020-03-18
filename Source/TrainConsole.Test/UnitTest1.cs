@@ -11,9 +11,10 @@ namespace TrainConsole.Test
         public void CheckGate_IsGateOpen_False()
         {
             //Arrange
-            var gate = new Gate();
+
             //Act
-           var result=gate.IsGateOpen();
+            var result= Gate.IsGateOpen();
+
             //Assert
             Assert.IsFalse(result);
         }
@@ -23,10 +24,11 @@ namespace TrainConsole.Test
         {
             //Arrange
             var gate = new Gate();
+            gate.ToggleGate();
 
             //Act
-            gate.ToggleGate();
-            var result = gate.IsGateOpen();
+            var result = Gate.IsGateOpen();
+
             //Assert
             Assert.IsTrue(result);
         }
@@ -106,29 +108,13 @@ namespace TrainConsole.Test
         }
 
         [TestMethod]
-        public void GetTrackByStationID_ValidStations_TrackObject()
-        {
-            //Arrange
-            Track.ClearTrackList();
-            var track1 = new Track(1, 1, 2, 58);
-
-            //Act
-            var result = track1.GetTrackByStationID(1, 2);
-
-            //Assert
-            Assert.IsInstanceOfType(result, typeof(Track));
-
-        }
-
-        [TestMethod]
         public void GetTrackByStationID_InvalidStations_Null()
         {
             //Arrange
             Track.ClearTrackList();
-            var track1 = new Track(1, 1, 2, 58);
 
             //Act
-            var result = track1.GetTrackByStationID(3, 4);
+            var result = Track.GetTrackByStationID(3, 4);
 
             //Assert
             Assert.IsNull(result);
@@ -140,7 +126,7 @@ namespace TrainConsole.Test
         {
             //Arrange
             var data = new Data();
-            string path = @"C:\Dev\the-railway-grupp-3\Data\";
+            string path = @"..\..\..\..\..\Data\";
 
             string fileName = "trains.txt";
 
@@ -158,7 +144,7 @@ namespace TrainConsole.Test
         {
             //Arrange
             var data = new Data();
-            string path = @"C:\Dev\the-railway-grupp-3\Data\";
+            string path = @"..\..\..\..\..\Data\";
 
             string fileName = "passengers.txt";
 
@@ -175,7 +161,7 @@ namespace TrainConsole.Test
             //Arrange
             Track.ClearTrackList();
             var data = new Data();
-            string path = @"C:\Dev\the-railway-grupp-3\Data\";
+            string path = @"..\..\..\..\..\Data\";
 
             string fileName = "traintrack.txt";
 

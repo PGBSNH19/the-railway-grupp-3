@@ -13,16 +13,16 @@ namespace TrainConsole
 
         private static void timetick(object state)
         {
-            TimeSpan elapsedTime = (DateTime.Now - startTime) * timeMultiplier;
+            TimeSpan elapsedTime = (DateTime.Now - startTime)*timeMultiplier;
             startTime = DateTime.Now;
             globaltime += elapsedTime;
 
-            //Console.WriteLine(globaltime);
+            Console.WriteLine(globaltime);
         }
 
         static void Main()
         {
-            Timer t = new Timer(timetick, globaltime, 0, 500);
+            Timer t = new Timer(timetick, globaltime, 0, 1000);
 
             data.LoadAllFiles();
 
@@ -55,17 +55,12 @@ namespace TrainConsole
 
             var currentTrain = data.Trains.Where(x => x.ID == data.TimeTables[i].traindId).FirstOrDefault();
 
-
-            if ((track.IsClear && data.IsStationClear(arrivalStation.ID)))
+            if (track.IsClear)
             {
                 data.TimeTables[i].HasDeparted = true;
                 TimeSpan journeyTime = (data.TimeTables[i + 1].arrivalTime - globaltime);
-                track.IsClear = false;
-                currentTrain.StartTrain(currentTrain, departureStation, arrivalStation, journeyTime);
-                if (data.IsTripDone(currentTrain.CurrentStationID))
-                {
-                    track.IsClear = true;
-                }
+
+                currentTrain.StartTrain(currentTrain, departureStation, arrivalStation, journeyTime, track);
             }
             else
             {

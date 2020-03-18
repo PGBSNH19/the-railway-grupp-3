@@ -4,8 +4,8 @@ using System.Text;
 
 namespace TrainConsole
 {
-	public class Station
-	{
+    public class Station
+    {
 		private int _id = 0;
 		private string _name;
 		private bool _isEndStation;
@@ -16,15 +16,6 @@ namespace TrainConsole
 			_id = id;
 			_name = name;
 			_isEndStation = isendstation;
-		}
-
-		public Station GetStationByID(int id)
-		{
-			if (id == _id)
-			{
-				return this;
-			}
-			return null;
 		}
 
 		public bool IsEndStation
